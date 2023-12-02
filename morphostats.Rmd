@@ -1,0 +1,52 @@
+---
+title: "morphostats"
+output: html_document
+date: "2023-11-07"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggfortify)
+library(ggplot2)
+
+```
+
+data prep
+```{r}
+str(iris)
+
+head(iris)
+```
+pca
+```{r}
+iris.pca <- prcomp(iris[,c(1:4)],
+                   center = TRUE,
+                   scale. = TRUE)
+summary(iris.pca)
+
+# structure of the pca object
+str(iris.pca)
+```
+plot
+```{r}
+iris.pca.plot <- autoplot(iris.pca,
+                          data = iris,
+                          colour = 'Species')
+iris.pca.plot
+```
+
+biplot() can show the linear transformation of features
+```{r}
+biplot.iris.pca <- biplot(iris.pca)
+biplot.iris.pca
+```
+
+```{r}
+plot.iris.pca <- plot_pca(iris.pca, type="1")
+plot.iris.pca
+```
+
+

@@ -1,0 +1,7 @@
+"","Specimen_Filename","scientificName..C_..","flower_len_cm","corolla_base_cm","corolla_apex_cm","degree_curvature"," stamen_ex_cm","anther_width_cm","anther_len_cm","leaf_area_cm2"," leaf_len_cm","leaf_width_cm"
+"","Length:11         ","Length:11         ","Min.   :2.249  ","Min.   :0.3230  ","Min.   :0.5205  ","Min.   :123.0  ","Min.   :0.0000  ","Min.   :0.0000  ","Min.   :0.0000  ","Min.   : 12.97  ","Min.   : 7.979  ","Min.   :2.110  "
+"","Class :character  ","Class :character  ","1st Qu.:3.247  ","1st Qu.:0.4888  ","1st Qu.:0.6637  ","1st Qu.:140.7  ","1st Qu.:0.5773  ","1st Qu.:0.2150  ","1st Qu.:0.5122  ","1st Qu.: 55.48  ","1st Qu.:14.509  ","1st Qu.:5.637  "
+"","Mode  :character  ","Mode  :character  ","Median :3.550  ","Median :0.5190  ","Median :0.7200  ","Median :151.3  ","Median :0.8855  ","Median :0.2575  ","Median :0.7050  ","Median : 79.34  ","Median :15.802  ","Median :6.741  "
+"",NA,NA,"Mean   :3.491  ","Mean   :0.5229  ","Mean   :0.7986  ","Mean   :147.2  ","Mean   :0.8735  ","Mean   :0.2606  ","Mean   :0.6809  ","Mean   : 74.92  ","Mean   :16.447  ","Mean   :6.273  "
+"",NA,NA,"3rd Qu.:3.659  ","3rd Qu.:0.5663  ","3rd Qu.:0.9597  ","3rd Qu.:153.3  ","3rd Qu.:1.2308  ","3rd Qu.:0.3215  ","3rd Qu.:0.8705  ","3rd Qu.: 96.42  ","3rd Qu.:19.746  ","3rd Qu.:7.220  "
+"",NA,NA,"Max.   :5.008  ","Max.   :0.6515  ","Max.   :1.1360  ","Max.   :165.0  ","Max.   :1.4045  ","Max.   :0.4760  ","Max.   :1.1510  ","Max.   :117.81  ","Max.   :23.393  ","Max.   :8.386  "

@@ -1,0 +1,288 @@
+---
+title: "analysis"
+output: html_document
+date: "2023-11-01"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+See "Rmd Day 3 - Tidyverse"
+"Day4_Analyzing_Data.Rmd"
+
+## Intro to the Tidyverse:
+
+### The tidyverse suite of packages are built off a "grammar of graphics" established to create logical, modular, and intuitive syntax in R.
+
+### ggplot2 ("grammar of graphics plot 2") is one such package that is designed to make data visualization intuitive for the end-user (you!)
+
+### ggplot2 graphs have a few basic parts that are required for each graph:
+#### 1. The ggplot() function.
+#### 2. A data object.
+#### 3. Aesthetics defined by the aes() function.
+#### 4. Geometries for your plot, e.g., geom_col().
+
+## 1. Data Inspection
+### Inspect your data and take note of the variables contained within.
+
+```{r Data_Inspection}
+# Look at the dataset directly.
+glimpse(iris)
+
+# Print some summary statistics about the dataset.
+summary(iris)
+
+# Print the number of rows in the dataset.
+nrow(iris)
+
+# Print the number of columns in the dataset.
+ncol(iris)
+
+```
+
+## Dplyr 
+dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges
+
+mutate() adds new variables that are functions of existing variables
+```{r}
+mutate(iris, Petal.Area = Petal.Width * Petal.Length)
+```
+
+select() selects variables based on their names
+```{r}
+select(iris, Species, Petal.Length)
+```
+
+filter() picks cases based on their values
+```{r}
+filter(iris, Species == "versicolor" & Petal.Length <= 3.4)
+```
+
+summarise() reduces multiple values down to a single summary
+```{r}
+summarise(iris, mean(Petal.Length))
+```
+
+arrange() changes the ordering of the rows
+```{r}
+arrange(iris, desc(Petal.Length))
+```
+
+All of these functions work with group_by(), which allows you to perform any operation "by group".
+```{r}
+iris_grouped <- group_by(iris, Species)
+summarise(iris_grouped, mean(Petal.Length))
+```
+
+## 2. Pipes:
+### Before we begin, let's talk about pipes: %>%. 
+### What are pipes? Pipes allow you to chain multiple commands/functions together by piping them into one another.
+### Pipes are commonly used in ggplot and data wrangling to chain together commands.
+### The shortcut to produce a pipe is ctrl + shift + m for windows and command + shift + m for mac. 
+
+```{r}
+#Here's an example without pipes
+iris_subset <- select(iris, Species, Sepal.Length)
+versicolor_subset <- filter(iris_subset, Species == "versicolor")
+# Here's an example of a pipe command. 
+# We are using pipes to load the iris dataset object, select 2 columns in the dataset, then filter for rows containing a specific species in a single command.
+final_dataset <- iris %>% 
+  select(Species, Sepal.Length) %>% 
+  filter(Species == "versicolor")
+final_dataset
+
+```
+
+## 3. Making a Basic Plot
+### Second, let's see what a ggplot actually looks like. Let's plot petal width by species.
+### Remember, every ggplot requires the following parts:
+#### 1. A data object.
+#### 2. The ggplot() function.
+#### 3. Aesthetics defined by the aes() function.
+#### 4. Geometries for your plot
+
+### Pipes are also commonly used in ggplot functions!
+
+```{r Intro_Plot_Example}
+iris %>% 
+  ggplot(aes(x = Species, y = Petal.Width)) + 
+  geom_col()
+
+```
+
+
+## 4. Data Types.
+### Categorical Data.
+#### Also called discrete data, each value in categorical data is defined by a specific category, whole number, etc. 
+#### Examples:
+#### - Colors are categorical.
+#### - Years are categorical. 
+#### - Rating Systems or Quality Scores are (typically) categorical. 
+#### - Species is categorical.
+
+### Continuous Data.
+#### Continuous data is comprised of values that fall within a range.
+#### Examples:
+#### - Human height is continuous.
+#### - Petal length and width of iris are continuous.
+
+## 5. Fills (Adding Color to Your Data).
+### Fills are included as part of your plot aesthetics [within the aes() function]. By default, setting your fill will create a legend with color associations for each discrete category of your variable. 
+
+### Let's plot our original iris plot again, but add a fill for our species!
+
+```{r Fill_Example_Categorical}
+iris_plot <- iris %>% 
+  ggplot(aes(x = Species, y = Petal.Width, fill = Species)) + 
+  geom_col()
+```
+
+### Now, let's try it again for petal width
+
+```{r Fill_Example_Continuous}
+iris %>% 
+  ggplot(aes(x = Species, y = Petal.Width, fill = Petal.Width)) + 
+  geom_col()
+```
+
+### Any ideas why this looks strange?
+
+## Themes
+### Themes can be used to easily change the overall aesthetic of your plots. There are numerous base themes, but many more available from packages such as `ggdark`.
+
+```{r Theme_Example}
+iris_plot <- iris %>% 
+  ggplot(aes(x = Species, y = Petal.Width, fill = Species)) + 
+  geom_col() +
+  theme_minimal()
+iris_plot
+```
+
+## 6. Titles & Labels
+### ggplot can allow you to quickly relabel the entirety of your graph using the labs() function!
+
+```{r Labels_Example}
+iris_plot <- iris %>% 
+  ggplot(aes(x = Species, y = Petal.Width, fill = Species)) + 
+  geom_col() +
+  theme_minimal() +
+  labs(x = "Iris Species", y = "Petal Width", title = "Variances in Petal Width Across Three Species of Iris")
+iris_plot
+```
+
+## 7. Axis Augmentation & Type Faces.
+
+### Grammar Lesson
+### Before moving forward, it's important to understand the nuts and bolts of what the grammar of graphics really means in ggplot. We will avoid diving too deeply, but it's important to understand that functions in ggplot are layered. This allows you to edit your plot in its entirety or a very specific element of your plot with only slight tweaks to your syntax.
+
+### Axes are a valuable way to communicate what exactly you are depicting in your plot. The typeface and size of axis titles often leave something to be desired. Let's explore how we can improve our axes here.
+
+### Typeface
+
+```{r}
+iris_plot <- iris %>% 
+  ggplot(aes(x = Species, y = Petal.Width, fill = Species)) + 
+  geom_col() +
+  theme_linedraw() +
+  labs(x = "Iris Species", y = "Petal Width", title = "Variances in Petal Width Across Three Species of Iris") +
+  guides(fill = "none") +
+  theme(axis.text.x = element_text(face = "italic"))
+iris_plot
+```
+
+##  8. Size & the theme() Function
+### theme() can be used to manually augment specific elements of your graph.
+### theme() functions are structured with the following elements.
+#### - a theme() wrapper
+#### - the specific element of the plot you wish to change
+#### - an element_<element type>() function, e.g., element_text()
+#### - arguments, such as size, shape, face, etc. to alter your text.
+
+### Let's try with your plot title!
+```{r}
+iris %>% 
+  ggplot(aes(x = Species, y = Petal.Width, fill = Species)) + 
+  geom_col() +
+  theme_linedraw() +
+  labs(x = "Iris Species", y = "Petal Width", title = "Variances in petal width across three species of Iris") +
+  guides(fill = "none") +
+  theme(axis.text.x = element_text(face = "italic", size = 10),
+        plot.title = element_text(size = 18))
+    
+```
+
+### Now, try with your axis titles.
+```{r}
+iris %>% 
+  ggplot(aes(x = Species, y = Petal.Width, fill = Species)) + 
+  geom_col() +
+  theme_linedraw() +
+  labs(x = "Iris Species", y = "Petal Width", title = "Variances in petal width across three species of Iris") +
+  guides(fill = "none") +
+  theme(axis.text.x = element_text(face = "italic", size = 10),
+        plot.title = element_text(size = 18),
+        axis.title = element_text(size = 16))
+```
+
+### Let's try removing the axis titles.
+```{r}
+iris %>% 
+  ggplot(aes(x = Species, y = Petal.Width, fill = Species)) + 
+  geom_col() +
+  theme_linedraw() +
+  labs(x = "Iris Species", y = "Petal Width", title = "Variances in petal width across three species of Iris") +
+  guides(fill = "none") +
+  theme(axis.text.x = element_text(face = "italic", size = 10),
+        plot.title = element_text(size = 18),
+        axis.title.x = element_blank())
+```
+
+
+## 9. Legends.
+### Legends are automatically populated by your "fill", but can be easily disabled and/or redefined.
+
+```{r}
+iris %>% 
+  ggplot(aes(x = Species, y = Petal.Width, fill = Species)) + 
+  geom_col() +
+  theme_linedraw() +
+  labs(x = "Iris Species", y = "Petal Width (cm)", title = "Variances in petal width across three species of Iris") +
+  guides(fill = guide_legend("Iris Species")) +
+  theme(axis.text.x = element_text(face = "italic", size = 10),
+        plot.title = element_text(size = 18),
+        axis.title.x = element_blank())
+#changed labs() y axis to include cm, then messed with legend
+```
+
+## 10. Challenge.
+### Now, use the iris dataset to do the following:
+1. Create a ggplot for the iris dataset.
+2. Plot petal length on the x axis.
+3. Plot species on the y axis.
+4. Add your species to the legend. 
+5. Add a geom to your plot. You can create another bar chart, or explore other geoms, such as a boxplot [geom_boxplot()].
+6. Try the following themes and choose your favorite: theme_void(), theme_minimal, theme_bw()
+7. Create a title for your plot.
+8. Relabel your x-axis.
+9. Relabel your y-axis.
+10. Disable your legend.
+11. Increase your plot title to a reasonable size.
+12. Center your title using the `hjust = 0.5` argument in your plot.title theme.
+13. Change axis titles to font size 12.
+14. Extra fun: try spacing your titles manually by adding \n to the beginning or end (\n signifies a line break).
+
+```{r}
+title_var <- expression(paste("Variance in petal length across three species of ", italic("Iris")))
+iris %>% 
+  ggplot(aes(y = Petal.Length, x = Species, fill = Species)) +
+  geom_boxplot() +
+  theme_bw() +
+  labs(x = NULL, y = "Petal Length (cm)", title = title_var) +
+  guides(fill = "none") +
+  theme(axis.text.x = element_text(face = "italic", size = 12),
+        plot.title = element_text(size = 18, hjust = 0.5),
+        axis.title.y = element_text(size = 12)) +
+  scale_fill_manual(values = wes_palette("GrandBudapest2", n = 3))
+        
+```
+

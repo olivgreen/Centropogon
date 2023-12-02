@@ -1,0 +1,7 @@
+Specimen_Filename,scientificName..C_..,flower_len_cm,corolla_base_cm,corolla_apex_cm,degree_curvature, stamen_ex_cm,anther_width_cm,anther_len_cm,leaf_area_cm2, leaf_len_cm,leaf_width_cm
+Length:22         ,Length:22         ,Min.   :2.606  ,Min.   :0.2640  ,Min.   :0.8360  ,Min.   :121.8  ,Min.   :0.961  ,Min.   :0.2200  ,Min.   :0.5410  ,Min.   : 33.8  ,Min.   :10.26  ,Min.   : 4.680  
+Class :character  ,Class :character  ,1st Qu.:3.068  ,1st Qu.:0.3636  ,1st Qu.:0.9675  ,1st Qu.:128.4  ,1st Qu.:1.092  ,1st Qu.:0.2639  ,1st Qu.:0.5935  ,1st Qu.: 81.0  ,1st Qu.:17.12  ,1st Qu.: 7.494  
+Mode  :character  ,Mode  :character  ,Median :3.230  ,Median :0.4075  ,Median :1.1190  ,Median :135.8  ,Median :1.158  ,Median :0.2810  ,Median :0.6340  ,Median :105.4  ,Median :19.92  ,Median : 8.312  
+NA,NA,Mean   :3.249  ,Mean   :0.3947  ,Mean   :1.1343  ,Mean   :138.1  ,Mean   :1.192  ,Mean   :0.2842  ,Mean   :0.6314  ,Mean   :104.5  ,Mean   :19.78  ,Mean   : 8.175  
+NA,NA,3rd Qu.:3.453  ,3rd Qu.:0.4253  ,3rd Qu.:1.2812  ,3rd Qu.:140.2  ,3rd Qu.:1.236  ,3rd Qu.:0.3110  ,3rd Qu.:0.6635  ,3rd Qu.:134.5  ,3rd Qu.:23.30  ,3rd Qu.: 9.431  
+NA,NA,Max.   :3.850  ,Max.   :0.5050  ,Max.   :1.6055  ,Max.   :172.6  ,Max.   :1.695  ,Max.   :0.3350  ,Max.   :0.7870  ,Max.   :180.9  ,Max.   :27.13  ,Max.   :10.980  
